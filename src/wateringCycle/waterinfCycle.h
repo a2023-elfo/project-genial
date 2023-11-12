@@ -1,6 +1,8 @@
 #ifndef wateringCycle_H_
 #define wateringCycle_H_
 
+#include <LibRobus.h>
+
 //model pour definir une variable globale
 // #define NomVariable Value 
 // ex: #define LEFT 0
@@ -9,8 +11,8 @@
 //type nomFonction();
 //void BoardInit();
 
-void setup();
-int loop();
+void wateringCyclesetup(int*);
+void wateringCycleloop(int);
 
 
 
