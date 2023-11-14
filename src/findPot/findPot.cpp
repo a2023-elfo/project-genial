@@ -17,7 +17,7 @@ void findPotloop()
     Serial.println("je suis dans trouver pot");
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
-    
+
     while (ROBUS_ReadIR(0) < 200)
     {
         if (ENCODER_Read(RIGHT) > 2500)
@@ -25,8 +25,8 @@ void findPotloop()
             not_found = 1;
             break;
         }
-        MOTOR_SetSpeed(LEFT, -0.2);
-        MOTOR_SetSpeed(RIGHT, 0.2);
+        MOTOR_SetSpeed(LEFT, -0.15);
+        MOTOR_SetSpeed(RIGHT, 0.15);
     }
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
@@ -42,8 +42,14 @@ void findPotloop()
         
         while (ROBUS_ReadIR(0) < 200)
         {
-            MOTOR_SetSpeed(LEFT, 0.2);
-            MOTOR_SetSpeed(RIGHT, -0.2);
+            MOTOR_SetSpeed(LEFT, 0.15);
+            MOTOR_SetSpeed(RIGHT, -0.15);
+        }
+        if (ROBUS_ReadIR(0) < 200)
+        {
+            MOTOR_SetSpeed(LEFT, -0.1);
+            MOTOR_SetSpeed(RIGHT, 0.1);
+            delay(500);
         }
     }
     MOTOR_SetSpeed(LEFT, 0);
