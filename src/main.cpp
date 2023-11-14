@@ -5,12 +5,12 @@
 #include <followLine/followLine.h>
 #include <wateringCycle/waterinfCycle.h>
 
-int output = 0;
-
 static const int TROUVER_LIGNE = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
+
+int output = TROUVER_POT;
 
 void setup() {
   BoardInit();
@@ -36,6 +36,4 @@ void loop() {
   else if(output == ARROSER){
     wateringCycleloop(output);
   }
-
-  
 }

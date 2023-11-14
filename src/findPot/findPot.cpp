@@ -2,6 +2,8 @@
 
 int* _outputFP = 0;
 int not_found = 0;
+int virage;
+int avancer;
 static const int TROUVER_LIGNE = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
@@ -30,7 +32,7 @@ void findPotloop()
     }
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
-    delay(500);
+    delay(200);
     if (not_found == 1)
     {
         ENCODER_Reset(LEFT);
@@ -39,34 +41,61 @@ void findPotloop()
             MOTOR_SetSpeed(LEFT, 0.2);
             MOTOR_SetSpeed(RIGHT, -0.2);
         }
-        
+        ENCODER_Reset(LEFT);
         while (ROBUS_ReadIR(0) < 200)
         {
             MOTOR_SetSpeed(LEFT, 0.15);
             MOTOR_SetSpeed(RIGHT, -0.15);
         }
-        if (ROBUS_ReadIR(0) < 200)
-        {
-            MOTOR_SetSpeed(LEFT, -0.1);
-            MOTOR_SetSpeed(RIGHT, 0.1);
-            delay(500);
-        }
+        virage = ENCODER_ReadReset(LEFT);
+        MOTOR_SetSpeed(LEFT, 0);
+        MOTOR_SetSpeed(RIGHT, 0);
+        delay(100);
+    }
+    else
+    {
+        virage = ENCODER_ReadReset(RIGHT);
     }
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
-    delay(500);
-    not_found = 0;
+    delay(200);
+    ENCODER_Reset(LEFT);
+
     while (ROBUS_ReadIR(0) < 575)
     {
         MOTOR_SetSpeed(LEFT, 0.2);
         MOTOR_SetSpeed(RIGHT, 0.2);
     }
+    avancer = ENCODER_ReadReset(LEFT);
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
+    delay(3000);
+
+    while (ENCODER_Read(LEFT) != -avancer)
+    {
+        MOTOR_SetSpeed(LEFT, -0.2);
+        MOTOR_SetSpeed(RIGHT, -0.2);
+    }
+    ENCODER_Reset(LEFT);
+    ENCODER_Reset(RIGHT);
+
+    if (not_found == 0)
+    {
+        while (ENCODER_Read(LEFT) != virage)
+        {
+            MOTOR_SetSpeed(LEFT, 0.15);
+            MOTOR_SetSpeed(RIGHT, -0.15);
+        }
+    }
+    else
+    {
+        while (ENCODER_Read(RIGHT) != virage)
+        {
+            MOTOR_SetSpeed(LEFT, -0.15);
+            MOTOR_SetSpeed(RIGHT, 0.15);
+        }
+    }
+    not_found = 0;
     *_outputFP = ARROSER;
 };
-
-
-
-
 // fonction exclusive
