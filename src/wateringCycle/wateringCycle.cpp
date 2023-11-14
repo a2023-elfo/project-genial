@@ -13,7 +13,7 @@ void wateringCyclesetup(int* output){
 
 
 void wateringCycleloop(int input){
-     Serial.println("je suis dans trouver ligne");
+     Serial.println("je suis dans arrosage");
     if(ROBUS_IsBumper(3)){
         *_outputWC = TROUVER_LIGNE;
     }    

@@ -95,6 +95,8 @@ void findPotloop()
             MOTOR_SetSpeed(RIGHT, 0.15);
         }
     }
+    MOTOR_SetSpeed(LEFT, 0);
+    MOTOR_SetSpeed(RIGHT, 0);
     not_found = 0;
     *_outputFP = ARROSER;
 };
