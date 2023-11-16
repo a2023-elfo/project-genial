@@ -2,8 +2,7 @@
 
 int* _outputFP = 0;
 int not_found = 0;
-int virage;
-int avancer;
+int distance = 0;
 static const int TROUVER_LIGNE = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
@@ -20,7 +19,7 @@ void findPotloop()
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
 
-    while (ROBUS_ReadIR(0) < 200)
+    while (ROBUS_ReadIR(0) < 175)
     {
         if (ENCODER_Read(RIGHT) > 2500)
         {
@@ -30,9 +29,7 @@ void findPotloop()
         MOTOR_SetSpeed(LEFT, -0.15);
         MOTOR_SetSpeed(RIGHT, 0.15);
     }
-    MOTOR_SetSpeed(LEFT, 0);
-    MOTOR_SetSpeed(RIGHT, 0);
-    delay(200);
+
     if (not_found == 1)
     {
         ENCODER_Reset(LEFT);
@@ -41,58 +38,38 @@ void findPotloop()
             MOTOR_SetSpeed(LEFT, 0.2);
             MOTOR_SetSpeed(RIGHT, -0.2);
         }
-        ENCODER_Reset(LEFT);
-        while (ROBUS_ReadIR(0) < 200)
+
+        while (ROBUS_ReadIR(0) < 175)
         {
             MOTOR_SetSpeed(LEFT, 0.15);
             MOTOR_SetSpeed(RIGHT, -0.15);
         }
-        virage = ENCODER_ReadReset(LEFT);
-        MOTOR_SetSpeed(LEFT, 0);
-        MOTOR_SetSpeed(RIGHT, 0);
-        delay(100);
-    }
-    else
-    {
-        virage = ENCODER_ReadReset(RIGHT);
     }
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
+    distance = ROBUS_ReadIR(0);
     delay(200);
-    ENCODER_Reset(LEFT);
 
     while (ROBUS_ReadIR(0) < 575)
     {
-        MOTOR_SetSpeed(LEFT, 0.2);
-        MOTOR_SetSpeed(RIGHT, 0.2);
-    }
-    avancer = ENCODER_ReadReset(LEFT);
-    MOTOR_SetSpeed(LEFT, 0);
-    MOTOR_SetSpeed(RIGHT, 0);
-    delay(3000);
+        ENCODER_Reset(LEFT);
+        ENCODER_Reset(RIGHT);
+        MOTOR_SetSpeed(LEFT, 0.15);
+        MOTOR_SetSpeed(RIGHT, 0.15);
 
-    while (ENCODER_Read(LEFT) != -avancer)
-    {
-        MOTOR_SetSpeed(LEFT, -0.2);
-        MOTOR_SetSpeed(RIGHT, -0.2);
-    }
-    ENCODER_Reset(LEFT);
-    ENCODER_Reset(RIGHT);
-
-    if (not_found == 0)
-    {
-        while (ENCODER_Read(LEFT) != virage)
-        {
-            MOTOR_SetSpeed(LEFT, 0.15);
-            MOTOR_SetSpeed(RIGHT, -0.15);
-        }
-    }
-    else
-    {
-        while (ENCODER_Read(RIGHT) != virage)
+        while (ROBUS_ReadIR(0) < (distance - 25) || ENCODER_Read(RIGHT) > 1000)
         {
             MOTOR_SetSpeed(LEFT, -0.15);
             MOTOR_SetSpeed(RIGHT, 0.15);
+            
+            if (ENCODER_Read(RIGHT) > 900)
+            {
+                while (ROBUS_ReadIR(0) < (distance - 25))
+                {
+                    MOTOR_SetSpeed(LEFT, 0.15);
+                    MOTOR_SetSpeed(RIGHT, -0.15);
+                }
+            }
         }
     }
     MOTOR_SetSpeed(LEFT, 0);
