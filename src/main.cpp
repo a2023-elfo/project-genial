@@ -10,7 +10,7 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 
-int output = TROUVER_POT;
+int output = SUIVRE_LIGNE;
 
 void setup() {
   BoardInit();
@@ -23,7 +23,6 @@ void setup() {
 }
 
 void loop() {
-  delay(2000);
   if(output == TROUVER_LIGNE){
     findLineloop();
   }

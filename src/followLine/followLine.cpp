@@ -1,4 +1,5 @@
 #include <followLine/followLine.h>
+#include <lineFollower/lineFollower.h>
 
 int* _outputFOL = 0;
 
@@ -10,11 +11,13 @@ static const int ARROSER= 3;
 
 void followLinesetup(int* output){
     _outputFOL = output;
+    setupLineFollower();
 };
 
 
 void followLineloop(){
-     Serial.println("je suis dans suivre ligne");
+    Serial.println("je suis dans suivre ligne");
+    blackLineLoop();
     if(ROBUS_IsBumper(3)){
         *_outputFOL = TROUVER_POT;
     }    
