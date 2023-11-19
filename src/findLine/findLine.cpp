@@ -13,13 +13,17 @@ void findLinesetup(int* output){
 };
 
 
-void findLineloop(){
-    Serial.println("je suis dans trouver ligne");
+void findLineloopBlack(){
+
+
     if(ROBUS_IsBumper(3)){
         *_outputFL = SUIVRE_LIGNE;
     }    
 };
 
+void findLineLoopWhite(){
+    
+}
 
 
 // fonction exclusive

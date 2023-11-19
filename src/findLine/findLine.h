@@ -11,7 +11,8 @@
 //void BoardInit();
 
 void findLinesetup(int*);
-void findLineloop();
+void findLineloopbBlack();
+void findLineloopWhite();
 
 
 

@@ -5,6 +5,8 @@ QTRSensors qtr;
 const uint8_t SensorCount = 8;
 uint16_t sensorValues[SensorCount];
 uint16_t sensors[8];
+int Compteur360deg = 0;
+bool stopLoop = false;
 void setupLineFollower(){
     BoardInit();
     Serial.begin(9600);
@@ -37,6 +39,36 @@ void very_gauche(){
     MOTOR_SetSpeed(LEFT,0.05);
 }
 
+void Tour360Horaire(){
+    if(!stopLoop){
+        Compteur360deg = ENCODER_Read(RIGHT);
+        if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
+            MOTOR_SetSpeed(RIGHT,-0.20);
+            MOTOR_SetSpeed(LEFT,0.20);
+        }else{
+            stopLoop = true;
+            ENCODER_Reset(RIGHT);
+        }
+    }else{
+        stop();
+    }
+}
+
+void Tour360AntiHoraire(){
+        if(!stopLoop){
+        Compteur360deg = ENCODER_Read(RIGHT);
+        if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
+            MOTOR_SetSpeed(RIGHT,0.20);
+            MOTOR_SetSpeed(LEFT,-0.20);
+        }else{
+            stopLoop = true;
+            ENCODER_Reset(RIGHT);
+        }
+    }else{
+        stop();
+    }
+}
+
 void stop(){
     MOTOR_SetSpeed(RIGHT,0);
     MOTOR_SetSpeed(LEFT,0);
@@ -67,9 +99,9 @@ void whiteLineLoop(){
     }
     else if (sensorValues[1] < 600 && sensorValues[2] < 600  && sensorValues[3] < 600 && sensorValues[4] < 600  && sensorValues[5] < 600 && sensorValues[6] < 600  && sensorValues[7] < 600 && sensorValues[0] < 600) // si robot ne détecte pas de ligne
     {
-    //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
-    // TODO mettre findLine() ici
-        stop();
+        //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
+        Tour360Horaire();
+    
     } else if (false) {
         // TODO mettre RFID() ici
     }
@@ -109,8 +141,7 @@ void blackLineLoop(){
     else if (sensorValues[1] > 400 && sensorValues[2] > 400  && sensorValues[3] > 400 && sensorValues[4] > 400  && sensorValues[5] > 400 && sensorValues[6] > 400  && sensorValues[7] > 400 && sensorValues[0] > 400) // si robot ne détecte pas de ligne
     {
         //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
-        // TODO mettre findLine() ici
-        stop();
+        Tour360Horaire();
     } else if (false) {
         // TODO mettre RFID() ici
     }
