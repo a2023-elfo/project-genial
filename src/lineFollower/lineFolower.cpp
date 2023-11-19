@@ -92,10 +92,12 @@ void whiteLineLoop(){
     else if (sensorValues[7] < 600) // si robot bcp trop à droite
     {
         very_gauche();
+        stopLoop = false;
     }
     else if (sensorValues[0] < 600) // si robot bcp trop à gauche
     {
         very_droite();
+        stopLoop = false;
     }
     else if (sensorValues[1] < 600 && sensorValues[2] < 600  && sensorValues[3] < 600 && sensorValues[4] < 600  && sensorValues[5] < 600 && sensorValues[6] < 600  && sensorValues[7] < 600 && sensorValues[0] < 600) // si robot ne détecte pas de ligne
     {
