@@ -77,6 +77,10 @@ void stop(){
 void whiteLineLoop(){
     qtr.read(sensorValues);
 
+    if(Compteur360deg == 0){
+        ENCODER_Reset(RIGHT);
+    }
+
     if (sensorValues[3] < 450 || sensorValues[4] < 450) // 2 capteurs du centre détectent ligne
     {
         avance();
@@ -93,11 +97,13 @@ void whiteLineLoop(){
     {
         very_gauche();
         stopLoop = false;
+        Compteur360deg = 0;
     }
     else if (sensorValues[0] < 600) // si robot bcp trop à gauche
     {
         very_droite();
         stopLoop = false;
+        Compteur360deg = 0;
     }
     else if (sensorValues[1] < 600 && sensorValues[2] < 600  && sensorValues[3] < 600 && sensorValues[4] < 600  && sensorValues[5] < 600 && sensorValues[6] < 600  && sensorValues[7] < 600 && sensorValues[0] < 600) // si robot ne détecte pas de ligne
     {
