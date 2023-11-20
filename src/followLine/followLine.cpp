@@ -16,7 +16,6 @@ void followLinesetup(int* output){
 
 
 void followLineloop(){
-    Serial.println("je suis dans suivre ligne");
     blackLineLoop();
     if(ROBUS_IsBumper(3)){
         *_outputFOL = TROUVER_POT;
