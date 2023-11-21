@@ -1,7 +1,7 @@
 #include <wateringCycle/waterinfCycle.h>
 
 int* _outputWC = 0;
-static const int TROUVER_LIGNE = 0;
+static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
@@ -15,7 +15,7 @@ void wateringCyclesetup(int* output){
 void wateringCycleloop(int input){
      Serial.println("je suis dans arrosage");
     if(ROBUS_IsBumper(3)){
-        *_outputWC = TROUVER_LIGNE;
+        *_outputWC = DEMO_OLI;
     }    
 };
 
