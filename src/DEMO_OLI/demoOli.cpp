@@ -1,8 +1,7 @@
 #include <DEMO_OLI/demoOli.h>
 
 int* _outputDEMO = 0;
-int not_found = 0;
-int distance = 0;
+
 static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;

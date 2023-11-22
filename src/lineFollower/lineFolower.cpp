@@ -54,6 +54,7 @@ void Tour360Horaire(){
         stop();
         if(Compteur360deg == 0){
             stopLoop = false;
+            ENCODER_Reset(RIGHT);
         }
     }
 }
