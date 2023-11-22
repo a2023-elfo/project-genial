@@ -79,6 +79,11 @@ void stop(){
     MOTOR_SetSpeed(LEFT,0);
 }
 
+int rfid_read(){
+
+    return 1;
+}
+
 void whiteLineLoop(){
     qtr.read(sensorValues);
 
@@ -171,7 +176,10 @@ void blackLineLoop(){
         //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
         Tour360Horaire();
         Serial.println("inloop");
-    } else if (false) {
-        // TODO mettre RFID() ici
+    } 
+    /*
+    else if (rfid_read() == 1) {
+        stop();
     }
+    */
 }
