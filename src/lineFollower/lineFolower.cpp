@@ -79,11 +79,6 @@ void stop(){
     MOTOR_SetSpeed(LEFT,0);
 }
 
-int rfid_read(){
-
-    return 1;
-}
-
 void whiteLineLoop(){
     qtr.read(sensorValues);
 
@@ -158,14 +153,13 @@ void blackLineLoop(){
         stopLoop = false;
         Compteur360deg = 0;
     }
-
     else if (sensorValues[7] > 700 ) // si robot bcp trop à droite
     {
         very_gauche();
         stopLoop = false;
         Compteur360deg = 0;
     }
-        else if (sensorValues[0] > 700 ) // si robot bcp trop à gauche
+    else if (sensorValues[0] > 700 ) // si robot bcp trop à gauche
     {
         very_droite();
         stopLoop = false;
@@ -177,9 +171,4 @@ void blackLineLoop(){
         Tour360Horaire();
         Serial.println("inloop");
     } 
-    /*
-    else if (rfid_read() == 1) {
-        stop();
-    }
-    */
 }

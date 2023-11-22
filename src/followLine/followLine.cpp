@@ -15,13 +15,14 @@ Rfid tags[] = {r1, r2};
 int lecture = 0;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
-// fonction exporter 
 
 void followLinesetup(int* output){
     _outputFOL = output;
     setupLineFollower();
 };
 
+/*Compare le tag lu aux tags de la liste allowedTags
+et retourne la position du tag dans la liste*/
 int findTag(char tagValue[])
 {
   for (int i = 0; i < numberofTags; i++)
@@ -34,6 +35,7 @@ int findTag(char tagValue[])
   return -1;
 }
 
+//La fonction lecture du rfid stocke les 12 caractères du tag lu dans un tableau 
 int rfid_read()
 {
   int valread = 0;
@@ -80,6 +82,8 @@ int rfid_read()
 void followLineloop(){
     blackLineLoop();
 
+    //Il faudrait aussi une variable pour stocker le taux d'humidité associé
+    //à la chip RFID qui vient d'être lu
     if (rfid_read() > -1)
     {
        *_outputFOL = TROUVER_POT;
