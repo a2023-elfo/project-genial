@@ -19,7 +19,6 @@ void wateringCyclesetup(int* output){
     Serial.begin(9600);
 };
 
-
 void wateringCycleloop(int input){
     int valeurCapteur = analogRead(A13);
 

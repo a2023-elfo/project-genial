@@ -153,14 +153,13 @@ void blackLineLoop(){
         stopLoop = false;
         Compteur360deg = 0;
     }
-
     else if (sensorValues[7] > 700 ) // si robot bcp trop à droite
     {
         very_gauche();
         stopLoop = false;
         Compteur360deg = 0;
     }
-        else if (sensorValues[0] > 700 ) // si robot bcp trop à gauche
+    else if (sensorValues[0] > 700 ) // si robot bcp trop à gauche
     {
         very_droite();
         stopLoop = false;
@@ -171,7 +170,5 @@ void blackLineLoop(){
         //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
         Tour360Horaire();
         Serial.println("inloop");
-    } else if (false) {
-        // TODO mettre RFID() ici
-    }
+    } 
 }
