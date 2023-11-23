@@ -11,15 +11,11 @@ void wateringCyclesetup(int* output){
     _outputWC = output;
 };
 
-
 void wateringCycleloop(int input){
      Serial.println("je suis dans arrosage");
     if(ROBUS_IsBumper(3)){
         *_outputWC = DEMO_OLI;
     }    
 };
-
-
-
 
 // fonction exclusive
