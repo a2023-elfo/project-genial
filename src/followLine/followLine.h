@@ -11,7 +11,7 @@
 //type nomFonction();
 //void BoardInit();
 
-void followLinesetup(int*);
+void followLinesetup(int*, float*);
 void followLineloop();
 
 

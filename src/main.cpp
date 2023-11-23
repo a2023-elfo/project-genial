@@ -11,13 +11,17 @@ static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
 int output = SUIVRE_LIGNE;
 
+float rfidValue = 0;
+int distanceRecule = 0;
+int output = 15;
+
 void setup() {
   BoardInit();
   Serial.begin(9600);
   Serial.println("Hello World!");
-  findPotsetup(&output);
-  followLinesetup(&output);
-  wateringCyclesetup(&output);
+  findPotsetup(&output, &distanceRecule );
+  followLinesetup(&output, &rfidValue);
+  wateringCyclesetup(&output, &rfidValue, &distanceRecule);
   DEMOsetup(&output);
 }
 
