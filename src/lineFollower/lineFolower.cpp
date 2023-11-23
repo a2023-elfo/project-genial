@@ -68,7 +68,8 @@ void Tour360AntiHoraire(){
             stopLoop = true;
             ENCODER_Reset(RIGHT);
         }
-    }else{
+    }
+    else{
         stop();
         ENCODER_Reset(RIGHT);
     }
@@ -120,8 +121,6 @@ void whiteLineLoop(){
     {
         //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
         Tour360Horaire();
-    } else if (false) {
-        // TODO mettre RFID() ici
     }
 }
 
