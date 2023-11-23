@@ -11,7 +11,7 @@
 //type nomFonction();
 //void BoardInit();
 
-void wateringCyclesetup(int*);
+void wateringCyclesetup(int*, float*, int*);
 void wateringCycleloop(int);
 
 

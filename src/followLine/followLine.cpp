@@ -2,7 +2,7 @@
 #include <lineFollower/lineFollower.h>
 #include <rfid/rfid.h>
 int* _outputFOL = 0;
-
+float* _rfidValue = 0;
 static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
@@ -16,8 +16,9 @@ int lecture = 0;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 
-void followLinesetup(int* output){
+void followLinesetup(int* output , float* rfidValue){
     _outputFOL = output;
+    _rfidValue = rfidValue;
     setupLineFollower();
 };
 

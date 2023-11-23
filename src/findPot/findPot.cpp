@@ -3,14 +3,16 @@
 int* _outputFP = 0;
 int not_found = 0;
 int distance = 0;
+int* _DistanceAReculer = 0;
 static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 // fonction exporter 
 
-void findPotsetup(int* output){
+void findPotsetup(int* output, int* DistanceRecule){
     _outputFP = output;
+    _DistanceAReculer = DistanceRecule;
 };
 
 void findPotloop()
