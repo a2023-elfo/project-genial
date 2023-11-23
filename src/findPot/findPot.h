@@ -11,7 +11,7 @@
 //type nomFonction();
 //void BoardInit();
 
-void findPotsetup(int*);
+void findPotsetup(int*, int*);
 
 void findPotloop();
 

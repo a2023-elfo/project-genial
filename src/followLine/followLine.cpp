@@ -2,8 +2,8 @@
 #include <lineFollower/lineFollower.h>
 #include <rfid/rfid.h>
 int* _outputFOL = 0;
-
-static const int TROUVER_LIGNE = 0;
+float* _rfidValue = 0;
+static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
@@ -16,8 +16,9 @@ int lecture = 0;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 
-void followLinesetup(int* output){
+void followLinesetup(int* output , float* rfidValue){
     _outputFOL = output;
+    _rfidValue = rfidValue;
     setupLineFollower();
 };
 
@@ -66,6 +67,7 @@ int rfid_read()
       }
       rfidtag[i] = '\0';
       tagNumber = findTag(rfidtag);
+      Serial.println(tagNumber);
       if (tagNumber > -1)
       {
         return tagNumber;
@@ -86,11 +88,9 @@ void followLineloop(){
     //à la chip RFID qui vient d'être lu
     if (rfid_read() > -1)
     {
+      MOTOR_SetSpeed(LEFT, 0);
+      MOTOR_SetSpeed(RIGHT, 0);
        *_outputFOL = TROUVER_POT;
-    }
-
-    if(ROBUS_IsBumper(3)){
-        *_outputFOL = TROUVER_POT;
     }
 };
 
