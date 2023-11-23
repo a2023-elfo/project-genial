@@ -1,4 +1,11 @@
-#include <wateringCycle/waterinfCycle.h>
+//#include <wateringCycle/waterinfCycle.h>
+#include <stdio.h>
+#include <SoftwareSerial.h>
+#include <Arduino.h>
+//valeurs d'humidite
+const int sec = 595;
+const int humide = 239;
+
 
 int* _outputWC = 0;
 float* _rfidValue2 = 0;
@@ -11,15 +18,25 @@ static const int ARROSER= 3;
 
 void wateringCyclesetup(int* output, float* rfidValue, int* _DistanceRecule){
     _outputWC = output;
+    Serial.begin(9600);
     _rfidValue2 = rfidValue;
     _DistanceRecule = _DistanceRecule;
 };
 
 void wateringCycleloop(int input){
-     Serial.println("je suis dans arrosage");
-    if(ROBUS_IsBumper(3)){
-        *_outputWC = DEMO_OLI;
-    }    
-};
+    int valeurCapteur = analogRead(A13);
 
-// fonction exclusive
+  int pourcentageHumidite = map(valeurCapteur, humide, sec, 100, 0);
+
+   if (pourcentageHumidite >= 0 && pourcentageHumidite <= 100) 
+   {
+    Serial.print(pourcentageHumidite);
+    Serial.println("%");
+  } 
+  
+  else 
+  {
+    Serial.println("Erreur de lecture");
+  }
+  delay(1000); //delai d'une seconde avant la prochaine lecture  
+};
