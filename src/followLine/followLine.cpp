@@ -70,6 +70,7 @@ int rfid_read()
       Serial.println(tagNumber);
       if (tagNumber > -1)
       {
+        *_rfidValue = tags[tagNumber].getTauxHumidite();
         return tagNumber;
       }
       else

@@ -13,7 +13,6 @@ int output = SUIVRE_LIGNE;
 
 float rfidValue = 0;
 int distanceRecule = 0;
-int output = 15;
 
 void setup() {
   BoardInit();
