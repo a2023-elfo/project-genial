@@ -7,16 +7,11 @@ int currentEncoderValue = 0;
 int encoderChanges = 0;
 int* _DistanceAReculer = 0;
 static const int DEMO_OLI = 0;
-int currentEncoderValue = 0;
-int encoderChanges = 0;
-int* _DistanceAReculer = 0;
-static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 // fonction exporter 
 
-void findPotsetup(int* output, int* DistanceRecule){
 void findPotsetup(int* output, int* DistanceRecule){
     _outputFP = output;
     _DistanceAReculer = DistanceRecule;

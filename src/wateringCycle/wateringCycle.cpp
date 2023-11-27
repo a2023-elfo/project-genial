@@ -21,15 +21,11 @@ int* _outputWC = 0;
 float* _rfidValue2 = 0;
 int* _DistanceRecule = 0;
 static const int DEMO_OLI = 0;
-float* _rfidValue2 = 0;
-int* _DistanceRecule = 0;
-static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 // fonction exporter 
 
-void wateringCyclesetup(int* output, float* rfidValue, int* DistanceRecule2){
 void wateringCyclesetup(int* output, float* rfidValue, int* DistanceRecule2){
     _outputWC = output;
     Serial.begin(9600);
