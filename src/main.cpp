@@ -23,16 +23,16 @@ int distanceRecule = 0;
 void setup() {
   BoardInit();
   Serial.begin(9600);
-  findPotsetup(&output, &distanceRecule);
+  findPotsetup(&output, &distanceRecule, &firstLine, &secondLine);
   screen.theScreenSetup(&firstLine, &secondLine);
-  followLinesetup(&output, &rfidValue);
+  followLinesetup(&output, &rfidValue, &firstLine, &secondLine);
   wateringCyclesetup(&output, &rfidValue, &distanceRecule);
   DEMOsetup(&output);
   pompe.setupPompe(45);
 }
 
 void loop() {
-    screen.theScreenLoop(); 
+    screen.theScreenLoop();
     if(digitalRead(48)==LOW){
       allumer=!allumer;
       delay(500);
@@ -52,6 +52,8 @@ void loop() {
         DEMOloop();
       }
   } else {
+    firstLine = "En attente";
+    secondLine = "   zzzzzzzzzz   ";
     MOTOR_SetSpeed(RIGHT, 0);
     MOTOR_SetSpeed(LEFT, 0);
     ENCODER_Reset(RIGHT);

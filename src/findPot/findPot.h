@@ -4,6 +4,7 @@
 #include <LibRobus.h>
 
 void findPotsetup(int*, int*);
+void findPotsetup(int*, int*, String*, String*);
 void findPotloop();
 
 #endif //laisser a la fin 

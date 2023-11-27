@@ -15,11 +15,17 @@ Rfid r3(allowedTags[2], "Cactus", 20);
 Rfid tags[] = {r1, r2, r3};
 int lecture = 0;
 
+String* followLineFirstString = 0;
+String* followLineSecondString = 0;
+
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 
-void followLinesetup(int* output , float* rfidValue){
+void followLinesetup(int* output , float* rfidValue, String* firstLine, String* secondLine){
     _outputFOL = output;
     _rfidValue = rfidValue;
+    followLineFirstString = firstLine;
+    followLineSecondString = secondLine;
+
     SERVO_Enable(0);
     SERVO_SetAngle(0, 130);
     delay(200);
@@ -87,6 +93,8 @@ int rfid_read()
 }
 
 void followLineloop(){
+    *followLineFirstString = "I do be followin";
+    *followLineSecondString = "the line tho";
     blackLineLoop();
 
     if (rfid_read() > -1)

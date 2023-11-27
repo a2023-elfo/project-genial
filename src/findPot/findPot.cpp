@@ -11,14 +11,21 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 // fonction exporter 
+String* potFirstLine = 0;
+String* potSecondLine = 0;
 
-void findPotsetup(int* output, int* DistanceRecule){
+void findPotsetup(int* output, int* DistanceRecule, String* firstLine, String* secondLine){
     _outputFP = output;
     _DistanceAReculer = DistanceRecule;
+    potFirstLine = firstLine;
+    potSecondLine = secondLine;
 };
 
 void findPotloop()
 {
+    *potFirstLine = "je checher le pot";
+    *potSecondLine = "ALLLOOOOOO";
+
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
 

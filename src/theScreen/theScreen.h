@@ -1,7 +1,6 @@
 #ifndef theScreen_H_
 #define theScreen_H_
-
-#include <LiquidCrystal.h>
+#include <Arduino.h>
 
 class theScreen
 {
