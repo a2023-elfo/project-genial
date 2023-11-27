@@ -44,9 +44,10 @@ void Tour360Horaire(){
     if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
         MOTOR_SetSpeed(RIGHT,-0.20);
         MOTOR_SetSpeed(LEFT,0.20);
-    }else if(Compteur360deg > 7893 && Compteur360deg < 20693){
-        MOTOR_SetSpeed(RIGHT,0.40);
-        MOTOR_SetSpeed(LEFT,0.552);
+    // }else if(Compteur360deg > 7893 ){
+    //     MOTOR_SetSpeed(RIGHT,0.40);
+    //     MOTOR_SetSpeed(LEFT,0.552);
+    // }else if (Compteur360deg > 20693){
     }else{
         stop();
     }
