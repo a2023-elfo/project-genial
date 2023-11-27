@@ -7,6 +7,15 @@
 //valeurs d'humidite
 const int sec = 595;
 const int humide = 239;
+//#include <wateringCycle/waterinfCycle.h>
+#include <stdio.h>
+#include <SoftwareSerial.h>
+#include <Arduino.h>
+#include <LibRobus.h>
+
+//valeurs d'humidite
+const int sec = 595;
+const int humide = 239;
 
 int* _outputWC = 0;
 float* _rfidValue2 = 0;

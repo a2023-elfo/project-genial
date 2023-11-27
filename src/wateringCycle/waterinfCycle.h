@@ -14,7 +14,4 @@
 void wateringCyclesetup(int*, float*, int*);
 void wateringCycleloop(int);
 
-
-
-
 #endif //laisser a la fin 

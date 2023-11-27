@@ -15,6 +15,7 @@ static const int ARROSER= 3;
 void findPotsetup(int* output, int* DistanceRecule){
     _outputFP = output;
     _DistanceAReculer = DistanceRecule;
+    _DistanceAReculer = DistanceRecule;
 };
 
 void findPotloop()
@@ -50,10 +51,13 @@ void findPotloop()
         }
     }
     
+    
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
     distance = ROBUS_ReadIR(0);
     delay(200);
+    ENCODER_Reset(LEFT);
+    ENCODER_Reset(RIGHT);
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
 
@@ -62,12 +66,14 @@ void findPotloop()
         MOTOR_SetSpeed(LEFT, 0.15);
         MOTOR_SetSpeed(RIGHT, 0.15);
         currentEncoderValue = ENCODER_Read(RIGHT);
+        currentEncoderValue = ENCODER_Read(RIGHT);
 
+        while (ROBUS_ReadIR(0) < (distance - 25))
         while (ROBUS_ReadIR(0) < (distance - 25))
         {
             MOTOR_SetSpeed(LEFT, -0.15);
             MOTOR_SetSpeed(RIGHT, 0.15);
-            
+            ENCODER_Reset(RIGHT);
             if (ENCODER_Read(RIGHT) > 900)
             {
                 while (ROBUS_ReadIR(0) < (distance - 25))
@@ -79,6 +85,7 @@ void findPotloop()
             encoderChanges = ENCODER_Read(RIGHT);
         }
     }
+    *_DistanceAReculer = currentEncoderValue - encoderChanges;
     *_DistanceAReculer = currentEncoderValue - encoderChanges;
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
