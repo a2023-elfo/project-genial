@@ -12,7 +12,7 @@ static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
 int output = SUIVRE_LIGNE;
 Pompe pompe;
-
+bool allumer = false;
 float rfidValue = 0;
 int distanceRecule = 0;
 
@@ -27,16 +27,29 @@ void setup() {
 }
 
 void loop() {
-  if(output == SUIVRE_LIGNE){
-    followLineloop();
-  }
-  else if(output == TROUVER_POT){
-    findPotloop();
-  }
-  else if(output == ARROSER){
-    wateringCycleloop(output);
-  }
-  else if(output == DEMO_OLI){
-    DEMOloop();
+    if(digitalRead(48)==LOW){
+      allumer=!allumer;
+      delay(500);
+    }
+    if(allumer){
+
+      if(output == SUIVRE_LIGNE){
+        followLineloop();
+      }
+      else if(output == TROUVER_POT){
+        findPotloop();
+      }
+      else if(output == ARROSER){
+        wateringCycleloop(output);
+      }
+      else if(output == DEMO_OLI){
+        DEMOloop();
+      }
+  } else {
+    MOTOR_SetSpeed(RIGHT, 0);
+    MOTOR_SetSpeed(LEFT, 0);
+    ENCODER_Reset(RIGHT);
+    ENCODER_Reset(LEFT);
+    output = SUIVRE_LIGNE;
   }
 }
