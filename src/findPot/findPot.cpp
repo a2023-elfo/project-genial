@@ -3,8 +3,8 @@
 int* _outputFP = 0;
 int not_found = 0;
 int distance = 0;
-int currentEncoderValue = 0;
 int encoderChanges = 0;
+int currentEncoderValue = 0;
 int* _DistanceAReculer = 0;
 static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
@@ -15,12 +15,10 @@ static const int ARROSER= 3;
 void findPotsetup(int* output, int* DistanceRecule){
     _outputFP = output;
     _DistanceAReculer = DistanceRecule;
-    _DistanceAReculer = DistanceRecule;
 };
 
 void findPotloop()
 {
-    Serial.println("je suis dans trouver pot");
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
 
@@ -51,45 +49,50 @@ void findPotloop()
         }
     }
     
-    
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
     distance = ROBUS_ReadIR(0);
-    delay(200);
-    ENCODER_Reset(LEFT);
-    ENCODER_Reset(RIGHT);
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);
 
-    while (ROBUS_ReadIR(0) < 575)
+    while (ROBUS_ReadIR(0) < 620)
     {
-        MOTOR_SetSpeed(LEFT, 0.15);
+        MOTOR_SetSpeed(LEFT, 0.14);
         MOTOR_SetSpeed(RIGHT, 0.15);
-        currentEncoderValue = ENCODER_Read(RIGHT);
-        currentEncoderValue = ENCODER_Read(RIGHT);
-
-        while (ROBUS_ReadIR(0) < (distance - 25))
-        while (ROBUS_ReadIR(0) < (distance - 25))
+        currentEncoderValue = ENCODER_Read(LEFT);
+        if (ROBUS_ReadIR(0) < (distance))
         {
             MOTOR_SetSpeed(LEFT, -0.15);
             MOTOR_SetSpeed(RIGHT, 0.15);
-            ENCODER_Reset(RIGHT);
+
             if (ENCODER_Read(RIGHT) > 900)
             {
-                while (ROBUS_ReadIR(0) < (distance - 25))
+                while (ROBUS_ReadIR(0) < (distance))
                 {
                     MOTOR_SetSpeed(LEFT, 0.15);
                     MOTOR_SetSpeed(RIGHT, -0.15);
                 }
             }
-            encoderChanges = ENCODER_Read(RIGHT);
-        }
+            encoderChanges = ENCODER_Read(LEFT) - currentEncoderValue;
+        }  
     }
-    *_DistanceAReculer = currentEncoderValue - encoderChanges;
-    *_DistanceAReculer = currentEncoderValue - encoderChanges;
+    while (ROBUS_ReadIR(0) > 400)
+    {
+        MOTOR_SetSpeed(LEFT, 0.1);
+        MOTOR_SetSpeed(RIGHT, 0.1);
+    }
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
+    //*_DistanceAReculer = currentEncoderValue;
+    *_DistanceAReculer = distance;
     not_found = 0;
+    while (ROBUS_ReadIR(3) < 450)
+    {
+        MOTOR_SetSpeed(LEFT, -0.1);
+        MOTOR_SetSpeed(RIGHT, 0.1);
+    }
+    MOTOR_SetSpeed(LEFT, 0);
+    MOTOR_SetSpeed(RIGHT, 0);
     *_outputFP = ARROSER;
 };
 // fonction exclusive

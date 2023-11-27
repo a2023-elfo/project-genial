@@ -4,12 +4,14 @@
 #include <followLine/followLine.h>
 #include <wateringCycle/waterinfCycle.h>
 #include <DEMO_OLI/demoOli.h>
+#include <pompe/pompe.h>
 
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
 int output = SUIVRE_LIGNE;
+Pompe pompe;
 
 float rfidValue = 0;
 int distanceRecule = 0;
@@ -17,25 +19,14 @@ int distanceRecule = 0;
 void setup() {
   BoardInit();
   Serial.begin(9600);
-  Serial.println("Hello World!");
   findPotsetup(&output, &distanceRecule );
   followLinesetup(&output, &rfidValue);
   wateringCyclesetup(&output, &rfidValue, &distanceRecule);
   DEMOsetup(&output);
+  pompe.setupPompe(45);
 }
 
 void loop() {
-
-  if(ROBUS_IsBumper(0)){
-      output = DEMO_OLI;
-  } 
-  if(ROBUS_IsBumper(2)){
-      output = SUIVRE_LIGNE;
-  }
-  if(ROBUS_IsBumper(1)){
-      output = TROUVER_POT;
-  }
-
   if(output == SUIVRE_LIGNE){
     followLineloop();
   }

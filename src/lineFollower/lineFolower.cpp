@@ -60,13 +60,6 @@ void stop(){
 void blackLineLoop(){
     qtr.read(sensorValues);
 
-    for (uint8_t i = 0; i < SensorCount; i++)
-    {
-        Serial.print(sensorValues[i]);
-        Serial.print('\t');
-    }
-    Serial.println();
-
     if (sensorValues[3] > 500 || sensorValues[4] > 500) // 2 capteurs du centre détectent ligne
     {
         avance();

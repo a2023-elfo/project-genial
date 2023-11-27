@@ -8,10 +8,11 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 
-char* allowedTags[] = {"0E008E974354", "0415148DE36B"};
+char* allowedTags[] = {"0E008E974354", "0415148DE36B", "4800755ACAAD"};
 Rfid r1(allowedTags[0], "Marguerite", 74.5);
 Rfid r2(allowedTags[1], "Pissenlit", 20.76);
-Rfid tags[] = {r1, r2};
+Rfid r3(allowedTags[2], "Cactus", 20);
+Rfid tags[] = {r1, r2, r3};
 int lecture = 0;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
@@ -19,6 +20,10 @@ int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 void followLinesetup(int* output , float* rfidValue){
     _outputFOL = output;
     _rfidValue = rfidValue;
+    SERVO_Enable(0);
+    SERVO_SetAngle(0, 130);
+    delay(200);
+    SERVO_Disable(0);
     setupLineFollower();
 };
 
@@ -67,8 +72,7 @@ int rfid_read()
       }
       rfidtag[i] = '\0';
       tagNumber = findTag(rfidtag);
-      Serial.println(tagNumber);
-      if (tagNumber > -1)
+      if (tagNumber > -1 && tags[tagNumber].getTauxHumidite() != *_rfidValue)
       {
         *_rfidValue = tags[tagNumber].getTauxHumidite();
         return tagNumber;

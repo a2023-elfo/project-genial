@@ -3,19 +3,7 @@
 
 #include <LibRobus.h>
 
-//model pour definir une variable globale
-// #define NomVariable Value 
-// ex: #define LEFT 0
-
-//model pour definir une fonction 
-//type nomFonction();
-//void BoardInit();
-
 void followLinesetup(int*, float*);
 void followLineloop();
-
-
-
-
 
 #endif //laisser a la fin 
