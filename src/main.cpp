@@ -10,6 +10,8 @@ static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
 int output = SUIVRE_LIGNE;
+bool allumer = false;
+
 
 float rfidValue = 0;
 int distanceRecule = 0;
@@ -22,30 +24,35 @@ void setup() {
   followLinesetup(&output, &rfidValue);
   wateringCyclesetup(&output, &rfidValue, &distanceRecule);
   DEMOsetup(&output);
+  pinMode(48,INPUT_PULLUP);
 }
 
 void loop() {
+    Serial.println(digitalRead(48));
+    if(digitalRead(48)==LOW){
+      allumer=!allumer;
+      delay(500);
+    }
+  if(allumer == true){
+    Serial.println("lol");
 
-  if(ROBUS_IsBumper(0)){
-      output = DEMO_OLI;
-  } 
-  if(ROBUS_IsBumper(2)){
-      output = SUIVRE_LIGNE;
-  }
-  if(ROBUS_IsBumper(1)){
-      output = TROUVER_POT;
-  }
-
-  if(output == SUIVRE_LIGNE){
-    followLineloop();
-  }
-  else if(output == TROUVER_POT){
-    findPotloop();
-  }
-  else if(output == ARROSER){
-    wateringCycleloop(output);
-  }
-  else if(output == DEMO_OLI){
-    DEMOloop();
+    if(output == SUIVRE_LIGNE){
+      followLineloop();
+    }
+    else if(output == TROUVER_POT){
+      findPotloop();
+    }
+    else if(output == ARROSER){
+      wateringCycleloop(output);
+    }
+    else if(output == DEMO_OLI){
+      DEMOloop();
+    }
+  } else {
+    MOTOR_SetSpeed(RIGHT, 0);
+    MOTOR_SetSpeed(LEFT, 0);
+    ENCODER_Reset(RIGHT);
+    ENCODER_Reset(LEFT);
+    output = SUIVRE_LIGNE;
   }
 }

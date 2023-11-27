@@ -85,8 +85,6 @@ int rfid_read()
 void followLineloop(){
     blackLineLoop();
 
-    //Il faudrait aussi une variable pour stocker le taux d'humidité associé
-    //à la chip RFID qui vient d'être lu
     if (rfid_read() > -1)
     {
       MOTOR_SetSpeed(LEFT, 0);
