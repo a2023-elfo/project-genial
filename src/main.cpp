@@ -9,10 +9,10 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
+int output = SUIVRE_LIGNE;
 
 float rfidValue = 0;
 int distanceRecule = 0;
-int output = 15;
 
 void setup() {
   BoardInit();

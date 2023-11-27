@@ -67,8 +67,10 @@ int rfid_read()
       }
       rfidtag[i] = '\0';
       tagNumber = findTag(rfidtag);
+      Serial.println(tagNumber);
       if (tagNumber > -1)
       {
+        *_rfidValue = tags[tagNumber].getTauxHumidite();
         return tagNumber;
       }
       else
@@ -87,11 +89,9 @@ void followLineloop(){
     //à la chip RFID qui vient d'être lu
     if (rfid_read() > -1)
     {
+      MOTOR_SetSpeed(LEFT, 0);
+      MOTOR_SetSpeed(RIGHT, 0);
        *_outputFOL = TROUVER_POT;
-    }
-
-    if(ROBUS_IsBumper(3)){
-        *_outputFOL = TROUVER_POT;
     }
 };
 

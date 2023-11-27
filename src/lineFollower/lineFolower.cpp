@@ -15,28 +15,28 @@ void setupLineFollower(){
 };
 
 void avance(){
-    MOTOR_SetSpeed(RIGHT,0.3);
-    MOTOR_SetSpeed(LEFT,0.3);
+    MOTOR_SetSpeed(RIGHT,0.25);
+    MOTOR_SetSpeed(LEFT,0.25);
 };
 
 void peu_droite(){ //le robot doit corriger sa trajectoire en allant un peu vers la droite
-    MOTOR_SetSpeed(RIGHT,0.27);
-    MOTOR_SetSpeed(LEFT,0.30);
+    MOTOR_SetSpeed(RIGHT,0.22);
+    MOTOR_SetSpeed(LEFT,0.25);
 }
 
 void peu_gauche(){
-    MOTOR_SetSpeed(RIGHT,0.30);
-    MOTOR_SetSpeed(LEFT,0.27);
+    MOTOR_SetSpeed(RIGHT,0.25);
+    MOTOR_SetSpeed(LEFT,0.22);
 }
 
 void very_droite(){
-    MOTOR_SetSpeed(RIGHT,0.05);
+    MOTOR_SetSpeed(RIGHT,-0.05);
     MOTOR_SetSpeed(LEFT,0.20);
 }
 
 void very_gauche(){
     MOTOR_SetSpeed(RIGHT,0.20);
-    MOTOR_SetSpeed(LEFT,0.05);
+    MOTOR_SetSpeed(LEFT,-0.05);
 }
 
 void Tour360Horaire(){
