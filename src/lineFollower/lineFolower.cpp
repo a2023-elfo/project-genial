@@ -40,90 +40,21 @@ void very_gauche(){
 }
 
 void Tour360Horaire(){
-    
-    if(!stopLoop){
-        Compteur360deg = abs(ENCODER_Read(RIGHT));
-        if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
-            MOTOR_SetSpeed(RIGHT,-0.20);
-            MOTOR_SetSpeed(LEFT,0.20);
-        }else{
-            stopLoop = true;
-            ENCODER_Reset(RIGHT);
-        }
+    Compteur360deg = abs(ENCODER_Read(RIGHT));
+    if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
+        MOTOR_SetSpeed(RIGHT,-0.20);
+        MOTOR_SetSpeed(LEFT,0.20);
+    }else if(Compteur360deg > 7893 && Compteur360deg < 20693){
+        MOTOR_SetSpeed(RIGHT,0.40);
+        MOTOR_SetSpeed(LEFT,0.552);
     }else{
         stop();
-        if(Compteur360deg == 0){
-            stopLoop = false;
-            ENCODER_Reset(RIGHT);
-        }
-    }
-}
-
-void Tour360AntiHoraire(){
-    if(!stopLoop){
-        Compteur360deg = ENCODER_Read(RIGHT);
-        if(Compteur360deg< 7893 ){     //d = 7.4  pi*7.4 = 23.247  d roue = 3  pi*3 = 9.42   23.247/ 9.42 = 2.47    2.47 * 3200 = 7893
-            MOTOR_SetSpeed(RIGHT,0.20);
-            MOTOR_SetSpeed(LEFT,-0.20);
-        }else{
-            stopLoop = true;
-            ENCODER_Reset(RIGHT);
-        }
-    }else{
-        stop();
-        ENCODER_Reset(RIGHT);
     }
 }
 
 void stop(){
     MOTOR_SetSpeed(RIGHT,0);
     MOTOR_SetSpeed(LEFT,0);
-}
-
-void whiteLineLoop(){
-    qtr.read(sensorValues);
-
-    if(Compteur360deg == 0){
-        ENCODER_Reset(RIGHT);
-    }
-
-    if (sensorValues[3] < 450 || sensorValues[4] < 450) // 2 capteurs du centre détectent ligne
-    {
-        avance();
-        stopLoop = false;
-        Compteur360deg = 0;
-    }
-    else if (sensorValues[5] < 500 || sensorValues[6] < 500) // si robot un peu trop à droite
-    {
-        peu_gauche();
-        stopLoop = false;
-        Compteur360deg = 0;
-    }
-    else if (sensorValues[1] < 500 || sensorValues[2] < 500 ) // si robot un peu trop à gauche
-    {
-        peu_droite();
-        stopLoop = false;
-        Compteur360deg = 0;
-    }
-    else if (sensorValues[7] < 600) // si robot bcp trop à droite
-    {
-        very_gauche();
-        stopLoop = false;
-        Compteur360deg = 0;
-    }
-    else if (sensorValues[0] < 600) // si robot bcp trop à gauche
-    {
-        very_droite();
-        stopLoop = false;
-        Compteur360deg = 0;
-    }
-    else if (sensorValues[1] < 600 && sensorValues[2] < 600  && sensorValues[3] < 600 && sensorValues[4] < 600  && sensorValues[5] < 600 && sensorValues[6] < 600  && sensorValues[7] < 600 && sensorValues[0] < 600) // si robot ne détecte pas de ligne
-    {
-        //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
-        Tour360Horaire();
-    } else if (false) {
-        // TODO mettre RFID() ici
-    }
 }
 
 void blackLineLoop(){
@@ -139,37 +70,31 @@ void blackLineLoop(){
     if (sensorValues[3] > 500 || sensorValues[4] > 500) // 2 capteurs du centre détectent ligne
     {
         avance();
-        stopLoop = false;
-        Compteur360deg = 0;
+        ENCODER_Reset(RIGHT);
     } 
     else if (sensorValues[5] > 600 || sensorValues[6] > 600) // si robot un peu trop à droite
     {
         peu_gauche();
-        stopLoop = false;
-        Compteur360deg = 0;
+        ENCODER_Reset(RIGHT);
     }
     else if (sensorValues[1] > 600 || sensorValues[2] > 600 ) // si robot un peu trop à gauche
     {
         peu_droite();
-        stopLoop = false;
-        Compteur360deg = 0;
+        ENCODER_Reset(RIGHT);
     }
     else if (sensorValues[7] > 700 ) // si robot bcp trop à droite
     {
         very_gauche();
-        stopLoop = false;
-        Compteur360deg = 0;
+        ENCODER_Reset(RIGHT);
     }
     else if (sensorValues[0] > 700 ) // si robot bcp trop à gauche
     {
         very_droite();
-        stopLoop = false;
-        Compteur360deg = 0;
+        ENCODER_Reset(RIGHT);
     }
     else if (sensorValues[1] < 500 && sensorValues[2] < 500  && sensorValues[3] < 500 && sensorValues[4] < 500  && sensorValues[5] < 500 && sensorValues[6] < 500  && sensorValues[7] < 500 && sensorValues[0] < 500) // si robot ne détecte pas de ligne
     {
         //Code de Mathieu pour qu'il fasse un tour et trouve la ligne
         Tour360Horaire();
-        Serial.println("inloop");
     } 
 }
