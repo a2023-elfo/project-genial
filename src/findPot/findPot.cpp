@@ -1,4 +1,5 @@
 #include <findPot/findPot.h>
+#include <theScreen/theScreen.h>
 
 int* _outputFP = 0;
 int not_found = 0;
@@ -13,18 +14,22 @@ static const int ARROSER= 3;
 // fonction exporter 
 String* potFirstLine;
 String* potSecondLine;
+theScreen potScreen;
 
 void findPotsetup(int* output, int* DistanceRecule, String* firstLine, String* secondLine){
     _outputFP = output;
     _DistanceAReculer = DistanceRecule;
     potFirstLine = firstLine;
     potSecondLine = secondLine;
+
+    potScreen.theScreenSetup(potFirstLine, potSecondLine);
 };
 
 void findPotloop()
 {
     *potFirstLine = "je checher le pot";
     *potSecondLine = "ALLLOOOOOO";
+    potScreen.theScreenLoop();
 
     ENCODER_Reset(LEFT);
     ENCODER_Reset(RIGHT);

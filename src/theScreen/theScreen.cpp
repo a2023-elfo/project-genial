@@ -1,7 +1,7 @@
 #include <theScreen/theScreen.h>
 #include <LiquidCrystal.h>
 
-const int rs = 22, en = 24, d4 = 42, d5 = 43, d6 = 44, d7 = 45;
+const int rs = 22, en = 24, d4 = 26, d5 = 28, d6 = 30, d7 = 32;
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -28,4 +28,9 @@ void theScreen::theScreenLoop() {
         lcd.print(*_secondLine);
         latestDisplayValue = currentValue;
     } 
+}
+
+// Expose the lcd object for more specific manipulations
+LiquidCrystal theScreen::getLcd() {
+    return lcd;
 }

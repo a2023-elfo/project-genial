@@ -22,6 +22,16 @@ char* Rfid::getNomPlante()
     return this->nom_plante;
 }
 
+String Rfid::getTagString()
+{
+    return String(this->tag);
+}
+
+String Rfid::getNomPlanteString()
+{
+    return String(this->nom_plante);
+}
+
 float Rfid::getTauxHumidite()
 {
     return this->taux_humidite;
