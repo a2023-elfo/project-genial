@@ -2,7 +2,8 @@
 #include <lineFollower/lineFollower.h>
 #include <rfid/rfid.h>
 int* _outputFOL = 0;
-float* _rfidValue = 0;
+float* _readPlantHumidity = 0;
+String* _readPlantName = 0;
 static const int DEMO_OLI = 0;
 static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
@@ -20,9 +21,10 @@ String* followLineSecondString;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 
-void followLinesetup(int* output , float* rfidValue, String* firstLine, String* secondLine){
+void followLineSetup(int* output, String* readPlantName, float* readPlantHumidity, String* firstLine, String* secondLine){
     _outputFOL = output;
-    _rfidValue = rfidValue;
+    _readPlantHumidity = readPlantHumidity;
+    _readPlantName = readPlantName;
     followLineFirstString = firstLine;
     followLineSecondString = secondLine;
 
@@ -78,9 +80,9 @@ int rfid_read()
       }
       rfidtag[i] = '\0';
       tagNumber = findTag(rfidtag);
-      if (tagNumber > -1 && tags[tagNumber].getTauxHumidite() != *_rfidValue)
+      if (tagNumber > -1 && tags[tagNumber].getTauxHumidite() != *_readPlantHumidity)
       {
-        *_rfidValue = tags[tagNumber].getTauxHumidite();
+        *_readPlantHumidity = tags[tagNumber].getTauxHumidite();
         return tagNumber;
       }
       else
@@ -97,8 +99,13 @@ void followLineloop(){
     *followLineSecondString = "the line tho";
     blackLineLoop();
 
-    if (rfid_read() > -1)
+    int tagNumber = rfid_read();
+
+    if (tagNumber > -1)
     {
+      *_readPlantHumidity = tags[tagNumber].getTauxHumidite();
+      *_readPlantName = tags[tagNumber].getNomPlanteString();
+
       MOTOR_SetSpeed(LEFT, 0);
       MOTOR_SetSpeed(RIGHT, 0);
        *_outputFOL = TROUVER_POT;

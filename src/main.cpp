@@ -14,30 +14,35 @@ static const int ARROSER= 3;
 static const int DEMO_OLI = 0;
 int output = SUIVRE_LIGNE;
 Pompe pompe;
-theScreen screen;
+theScreen mainScreen;
 String firstLine =  " 0            0 ";
 String secondLine = "     |____|     ";
 bool allumer = false;
-float rfidValue = 0;
 int distanceRecule = 0;
+
+float plantTargetHumidity = 0;
+String plantName = "";
 
 void setup() {
   BoardInit();
   Serial.begin(9600);
   findPotsetup(&output, &distanceRecule, &firstLine, &secondLine);
-  screen.theScreenSetup(&firstLine, &secondLine);
-  followLinesetup(&output, &rfidValue, &firstLine, &secondLine);
-  wateringCyclesetup(&output, &rfidValue, &distanceRecule);
+  mainScreen.theScreenSetup(&firstLine, &secondLine);
+  followLineSetup(&output, &plantName, &plantTargetHumidity, &firstLine, &secondLine);
+  wateringCycleSetup(&output, &plantName, &plantTargetHumidity, &distanceRecule, &firstLine, &secondLine);
   DEMOsetup(&output);
+  pinMode(48, INPUT_PULLUP);
   pompe.setupPompe(45);
 }
 
 void loop() {
-    screen.theScreenLoop();
+    mainScreen.theScreenLoop();
+
     if(digitalRead(48)==LOW){
       allumer=!allumer;
       delay(500);
     }
+
     if(allumer){
 
       if(output == SUIVRE_LIGNE){

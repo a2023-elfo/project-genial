@@ -3,7 +3,7 @@
 
 #include <LibRobus.h>
 
-void wateringCyclesetup(int*, float*, int*);
+void wateringCycleSetup(int*, String*, float*, int*, String*, String*);
 void wateringCycleloop(int);
 
 #endif //laisser a la fin 
