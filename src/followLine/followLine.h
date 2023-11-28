@@ -2,9 +2,9 @@
 #define followLine_H_
 
 #include <LibRobus.h>
+#include <RFID/RFID.h>
 
-void followLinesetup(int*, float*);
-void followLinesetup(int*, float*, String*, String*);
+void followLinesetup(int*, float*, String* = 0, String* = 0);
 void followLineloop();
 
 #endif //laisser a la fin 

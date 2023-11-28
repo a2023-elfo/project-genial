@@ -3,8 +3,7 @@
 
 #include <LibRobus.h>
 
-void findPotsetup(int*, int*);
-void findPotsetup(int*, int*, String*, String*);
+void findPotsetup(int*, int*, String* = 0, String* = 0);
 void findPotloop();
 
 #endif //laisser a la fin 

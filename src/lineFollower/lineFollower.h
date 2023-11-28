@@ -3,7 +3,7 @@
 #define lineFollower_H_
 #include <QTRSensors.h>
 
-
+// Exported lineFollower functions to prevent bloat in the followLine state
 void setupLineFollower();
 void avance();
 void peu_droite();

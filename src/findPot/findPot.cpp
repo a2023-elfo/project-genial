@@ -2,7 +2,7 @@
 
 int* _outputFP = 0;
 int not_found = 0;
-int distance = 0;
+uint16_t distance = 0;
 int encoderChanges = 0;
 int currentEncoderValue = 0;
 int* _DistanceAReculer = 0;
@@ -11,8 +11,8 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 // fonction exporter 
-String* potFirstLine = 0;
-String* potSecondLine = 0;
+String* potFirstLine;
+String* potSecondLine;
 
 void findPotsetup(int* output, int* DistanceRecule, String* firstLine, String* secondLine){
     _outputFP = output;
@@ -67,14 +67,14 @@ void findPotloop()
         MOTOR_SetSpeed(LEFT, 0.14);
         MOTOR_SetSpeed(RIGHT, 0.15);
         currentEncoderValue = ENCODER_Read(LEFT);
-        if (ROBUS_ReadIR(0) < (distance))
+        if (ROBUS_ReadIR(0) < distance)
         {
             MOTOR_SetSpeed(LEFT, -0.15);
             MOTOR_SetSpeed(RIGHT, 0.15);
 
             if (ENCODER_Read(RIGHT) > 900)
             {
-                while (ROBUS_ReadIR(0) < (distance))
+                while (ROBUS_ReadIR(0) < distance)
                 {
                     MOTOR_SetSpeed(LEFT, 0.15);
                     MOTOR_SetSpeed(RIGHT, -0.15);
@@ -91,7 +91,7 @@ void findPotloop()
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
     //*_DistanceAReculer = currentEncoderValue;
-    *_DistanceAReculer = distance;
+    *_DistanceAReculer = (int)distance;
     not_found = 0;
     while (ROBUS_ReadIR(3) < 450)
     {

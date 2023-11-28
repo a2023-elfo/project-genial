@@ -1,4 +1,4 @@
-#include <wateringCycle/waterinfCycle.h>
+#include <wateringCycle/wateringCycle.h>
 #include <stdio.h>
 #include <SoftwareSerial.h>
 #include <Arduino.h>

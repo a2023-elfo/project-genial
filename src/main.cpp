@@ -2,8 +2,9 @@
 #include <LibRobus.h>
 #include <findPot/findPot.h>
 #include <followLine/followLine.h>
-#include <wateringCycle/waterinfCycle.h>
+#include <wateringCycle/wateringCycle.h>
 #include <DEMO_OLI/demoOli.h>
+#include <RFID/RFID.h>
 #include <pompe/pompe.h>
 #include <theScreen/theScreen.h>
 
@@ -53,7 +54,7 @@ void loop() {
       }
   } else {
     firstLine = "En attente";
-    secondLine = "   zzzzzzzzzz   ";
+    secondLine = "   zzzzzzzzzz  ";
     MOTOR_SetSpeed(RIGHT, 0);
     MOTOR_SetSpeed(LEFT, 0);
     ENCODER_Reset(RIGHT);

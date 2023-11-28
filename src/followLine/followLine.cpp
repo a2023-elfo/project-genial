@@ -15,8 +15,8 @@ Rfid r3(allowedTags[2], "Cactus", 20);
 Rfid tags[] = {r1, r2, r3};
 int lecture = 0;
 
-String* followLineFirstString = 0;
-String* followLineSecondString = 0;
+String* followLineFirstString;
+String* followLineSecondString;
 
 int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 

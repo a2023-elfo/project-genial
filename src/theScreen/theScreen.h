@@ -2,6 +2,7 @@
 #define theScreen_H_
 #include <Arduino.h>
 
+// Exported theScreen functions to prevent bloat states that barely need it
 class theScreen
 {
     public :
