@@ -20,7 +20,7 @@ String secondLine = "     |____|     ";
 bool allumer = false;
 int distanceRecule = 0;
 
-float plantTargetHumidity = 0;
+float plantTargetHumidity = -1;
 String plantName = "";
 
 void setup() {
@@ -58,8 +58,8 @@ void loop() {
         DEMOloop();
       }
   } else {
-    firstLine = "En attente";
-    secondLine = "   zzzzzzzzzz  ";
+    firstLine = "   En attente";
+    secondLine = " Appuyer bouton";
     MOTOR_SetSpeed(RIGHT, 0);
     MOTOR_SetSpeed(LEFT, 0);
     ENCODER_Reset(RIGHT);

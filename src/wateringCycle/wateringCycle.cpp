@@ -5,10 +5,11 @@
 #include <LibRobus.h>
 #include <pompe/pompe.h>
 #include <theScreen/theScreen.h>
+#include <followLine/followLine.h>
 
 //valeurs d'humidite
-const int sec = 595;
-const int humide = 239;
+const int sec = 750;
+const int humide = 275;
 
 int* _outputWC = 0;
 float* _wateredPlantHumidity = 0;
@@ -79,15 +80,13 @@ void updateScreen(int readMoisture) {
 void monterBras(){
     SERVO_Enable(0);
     SERVO_SetAngle(0, 130);
-    delay(800);
+    delay(1000);
     SERVO_Disable(0);
 }
 
 void baisserBras(){
     SERVO_Enable(0);
-    SERVO_SetAngle(0, 130);
-    delay(500);
-    SERVO_SetAngle(0, 40);
+    SERVO_SetAngle(0, 30);
     delay(500);
     SERVO_Disable(0);
 }
@@ -95,17 +94,18 @@ void baisserBras(){
 void Arroser(){
     Pompe pompe;
     pompe.setupPompe(45);
-    pompe.pompeON(1.5);
+    pompe.pompeON(2);
     pompe.pompeOFF();
 }
 
 void wateringCycleloop(int input){
-    *_waterFirstLine = " Watering cycle";
-    *_waterSecondLine = "   in progress";
+    *_waterFirstLine = " Cycle d'arrosage";
+    *_waterSecondLine = "   en cours ";
     waterScreen.theScreenLoop();
     baisserBras();
-    delay(3000);
+    delay(5000);
     int valeurCapteur = analogRead(A13);
+    Serial.println(valeurCapteur);
     int pourcentageHumidite = map(valeurCapteur, humide, sec, 100, 0);
     updateScreen(pourcentageHumidite);
     monterBras();
@@ -119,14 +119,20 @@ void wateringCycleloop(int input){
     }
     else 
     {
-        Serial.println("Erreur de lecture");
+      Serial.println("Erreur de lecture");
     }
     monterBras();
     ENCODER_Reset(LEFT);
-    while (ROBUS_ReadIR(0) > *_DistanceRecule)
+    while (abs(ENCODER_Read(LEFT)) < *_DistanceRecule)
     {
-        MOTOR_SetSpeed(LEFT, -0.14);
-        MOTOR_SetSpeed(RIGHT, -0.15);
+      MOTOR_SetSpeed(LEFT, -0.15);
+      MOTOR_SetSpeed(RIGHT, -0.15);
+    }
+    ENCODER_Reset(LEFT);
+    while (ENCODER_Read(LEFT) < 1900)
+    {
+      MOTOR_SetSpeed(LEFT, 0.15);
+      MOTOR_SetSpeed(RIGHT, -0.15);
     }
     *_outputWC = SUIVRE_LIGNE;
 };

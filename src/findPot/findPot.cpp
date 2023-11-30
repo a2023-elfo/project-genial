@@ -21,14 +21,13 @@ void findPotsetup(int* output, int* DistanceRecule, String* firstLine, String* s
     _DistanceAReculer = DistanceRecule;
     potFirstLine = firstLine;
     potSecondLine = secondLine;
-
     potScreen.theScreenSetup(potFirstLine, potSecondLine);
 };
 
 void findPotloop()
 {
-    *potFirstLine = "je checher le pot";
-    *potSecondLine = "ALLLOOOOOO";
+    *potFirstLine = "Recherche du pot";
+    *potSecondLine = "   en cours   ";
     potScreen.theScreenLoop();
 
     ENCODER_Reset(LEFT);
@@ -71,9 +70,10 @@ void findPotloop()
     {
         MOTOR_SetSpeed(LEFT, 0.14);
         MOTOR_SetSpeed(RIGHT, 0.15);
-        currentEncoderValue = ENCODER_Read(LEFT);
+        //currentEncoderValue = ENCODER_Read(LEFT);
         if (ROBUS_ReadIR(0) < distance)
-        {
+        {   
+            ENCODER_Reset(LEFT);
             MOTOR_SetSpeed(LEFT, -0.15);
             MOTOR_SetSpeed(RIGHT, 0.15);
 
@@ -85,18 +85,20 @@ void findPotloop()
                     MOTOR_SetSpeed(RIGHT, -0.15);
                 }
             }
-            encoderChanges = ENCODER_Read(LEFT) - currentEncoderValue;
+            encoderChanges += abs(ENCODER_Read(LEFT));
         }  
     }
-    while (ROBUS_ReadIR(0) > 400)
+
+    while (ROBUS_ReadIR(0) > 450)
     {
         MOTOR_SetSpeed(LEFT, 0.1);
         MOTOR_SetSpeed(RIGHT, 0.1);
     }
+    *_DistanceAReculer = ENCODER_Read(LEFT) - encoderChanges;
     MOTOR_SetSpeed(LEFT, 0);
     MOTOR_SetSpeed(RIGHT, 0);
     //*_DistanceAReculer = currentEncoderValue;
-    *_DistanceAReculer = (int)distance;
+    //*_DistanceAReculer = (int)distance;
     not_found = 0;
     while (ROBUS_ReadIR(3) < 450)
     {

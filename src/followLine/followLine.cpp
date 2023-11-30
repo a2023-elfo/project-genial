@@ -9,17 +9,15 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 
-char* allowedTags[] = {"0E008E974354", "0415148DE36B", "4800755ACAAD"};
-Rfid r1(allowedTags[0], "Marguerite", 74.5);
-Rfid r2(allowedTags[1], "Pissenlit", 20.76);
-Rfid r3(allowedTags[2], "Cactus", 20);
+char* allowedTags[] = {"0E008E974354", "1600C3C98A96", "1600BF97BA84"};
+Rfid r1(allowedTags[0], "Pissenlit", 70.0);
+Rfid r2(allowedTags[1], "Cactus", 0.0);
+Rfid r3(allowedTags[2], "Marguerite", 60.0);
 Rfid tags[] = {r1, r2, r3};
 int lecture = 0;
 
 String* followLineFirstString;
 String* followLineSecondString;
-
-int numberofTags = sizeof(allowedTags)/sizeof(allowedTags[0]);
 
 void followLineSetup(int* output, String* readPlantName, float* readPlantHumidity, String* firstLine, String* secondLine){
     _outputFOL = output;
@@ -27,7 +25,6 @@ void followLineSetup(int* output, String* readPlantName, float* readPlantHumidit
     _readPlantName = readPlantName;
     followLineFirstString = firstLine;
     followLineSecondString = secondLine;
-
     SERVO_Enable(0);
     SERVO_SetAngle(0, 130);
     delay(200);
@@ -39,7 +36,7 @@ void followLineSetup(int* output, String* readPlantName, float* readPlantHumidit
 et retourne la position du tag dans la liste*/
 int findTag(char tagValue[])
 {
-  for (int i = 0; i < numberofTags; i++)
+  for (int i = 0; i < sizeof(tags); i++)
   {
     if (strcmp(tagValue, tags[i].getTag()) == 0)
     {
@@ -95,8 +92,8 @@ int rfid_read()
 }
 
 void followLineloop(){
-    *followLineFirstString = "I do be followin";
-    *followLineSecondString = "the line tho";
+    *followLineFirstString = "   Deplacement";
+    *followLineSecondString = "    en cours";
     blackLineLoop();
 
     int tagNumber = rfid_read();
@@ -105,10 +102,17 @@ void followLineloop(){
     {
       *_readPlantHumidity = tags[tagNumber].getTauxHumidite();
       *_readPlantName = tags[tagNumber].getNomPlanteString();
-
       MOTOR_SetSpeed(LEFT, 0);
       MOTOR_SetSpeed(RIGHT, 0);
-       *_outputFOL = TROUVER_POT;
+      SERVO_Enable(0);
+      SERVO_SetAngle(0, 130);
+      delay(500);
+      SERVO_Disable(0);
+      *_outputFOL = TROUVER_POT;
+    }
+    else
+    {
+      *_outputFOL = SUIVRE_LIGNE;
     }
 };
 
