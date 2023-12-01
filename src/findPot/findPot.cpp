@@ -40,8 +40,8 @@ void findPotloop()
             not_found = 1;
             break;
         }
-        MOTOR_SetSpeed(LEFT, -0.15);
-        MOTOR_SetSpeed(RIGHT, 0.15);
+        MOTOR_SetSpeed(LEFT, -0.2);
+        MOTOR_SetSpeed(RIGHT, 0.2);
     }
 
     if (not_found == 1)
@@ -55,8 +55,8 @@ void findPotloop()
 
         while (ROBUS_ReadIR(0) < 175)
         {
-            MOTOR_SetSpeed(LEFT, 0.15);
-            MOTOR_SetSpeed(RIGHT, -0.15);
+            MOTOR_SetSpeed(LEFT, 0.2);
+            MOTOR_SetSpeed(RIGHT, -0.2);
         }
     }
     
@@ -68,21 +68,21 @@ void findPotloop()
 
     while (ROBUS_ReadIR(0) < 620)
     {
-        MOTOR_SetSpeed(LEFT, 0.14);
-        MOTOR_SetSpeed(RIGHT, 0.15);
+        MOTOR_SetSpeed(LEFT, 0.2);
+        MOTOR_SetSpeed(RIGHT, 0.2);
         //currentEncoderValue = ENCODER_Read(LEFT);
         if (ROBUS_ReadIR(0) < distance)
         {   
             ENCODER_Reset(LEFT);
-            MOTOR_SetSpeed(LEFT, -0.15);
-            MOTOR_SetSpeed(RIGHT, 0.15);
+            MOTOR_SetSpeed(LEFT, -0.2);
+            MOTOR_SetSpeed(RIGHT, 0.2);
 
             if (ENCODER_Read(RIGHT) > 900)
             {
                 while (ROBUS_ReadIR(0) < distance)
                 {
-                    MOTOR_SetSpeed(LEFT, 0.15);
-                    MOTOR_SetSpeed(RIGHT, -0.15);
+                    MOTOR_SetSpeed(LEFT, 0.2);
+                    MOTOR_SetSpeed(RIGHT, -0.2);
                 }
             }
             encoderChanges += abs(ENCODER_Read(LEFT));

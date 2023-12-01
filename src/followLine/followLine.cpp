@@ -9,11 +9,12 @@ static const int SUIVRE_LIGNE = 1;
 static const int TROUVER_POT = 2;
 static const int ARROSER= 3;
 
-char* allowedTags[] = {"0E008E974354", "1600C3C98A96", "1600BF97BA84"};
+char* allowedTags[] = {"0E008E974354", "1600C3C98A96", "1600BF97BA84", "ID du nettoyage"};
 Rfid r1(allowedTags[0], "Pissenlit", 70.0);
 Rfid r2(allowedTags[1], "Cactus", 0.0);
 Rfid r3(allowedTags[2], "Marguerite", 60.0);
-Rfid tags[] = {r1, r2, r3};
+Rfid r4(allowedTags[3], "Nettoyage", 0.0);
+Rfid tags[] = {r1, r2, r3, r4};
 int lecture = 0;
 
 String* followLineFirstString;

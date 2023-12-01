@@ -125,14 +125,14 @@ void wateringCycleloop(int input){
     ENCODER_Reset(LEFT);
     while (abs(ENCODER_Read(LEFT)) < *_DistanceRecule)
     {
-      MOTOR_SetSpeed(LEFT, -0.15);
-      MOTOR_SetSpeed(RIGHT, -0.15);
+      MOTOR_SetSpeed(LEFT, -0.2);
+      MOTOR_SetSpeed(RIGHT, -0.2);
     }
     ENCODER_Reset(LEFT);
     while (ENCODER_Read(LEFT) < 1900)
     {
-      MOTOR_SetSpeed(LEFT, 0.15);
-      MOTOR_SetSpeed(RIGHT, -0.15);
+      MOTOR_SetSpeed(LEFT, 0.2);
+      MOTOR_SetSpeed(RIGHT, -0.2);
     }
     *_outputWC = SUIVRE_LIGNE;
 };
